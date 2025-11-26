@@ -1,0 +1,6 @@
+int32 tag_id
+---
+int32 tag_found
+geometry_msgs/Transform pose
+---
+int32 tracker_status
