@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+       name="name" default="grasp_box_with_apriltag">
+       
+    <!-- box name parameter -->
+   <xacro:arg name="name" default="grasp_box_with_apriltag"/>
+
+   <!-- import main macro -->
+   <xacro:include filename="$(find simple_box_with_marker_description)/urdf/materials.xacro"/>
+   <xacro:include filename="$(find simple_box_with_marker_description)/urdf/simple_box.xacro" />
+   <xacro:include filename="$(find simple_box_with_marker_description)/urdf/apriltag_marker.xacro" />
+
+   <!-- parameters -->
+   <xacro:arg name="link_name" default="grasp_box_base_link" />
+   <xacro:arg name="parent_link" default="box_world" />
+   <xacro:arg name="sx" default="0.04"/>
+   <xacro:arg name="sy" default="0.04"/>
+   <xacro:arg name="sz" default="0.08"/>
+   <xacro:arg name="material" default="red"/>
+   <xacro:arg name="gmaterial" default="Gazebo/Red"/>
+   <xacro:arg name="mass" default="1.0"/>
+   <xacro:arg name="inertial" default="0.000133333333333"/>
+   <xacro:arg name="mu1" default="0.25"/>
+   <xacro:arg name="mu2" default="0.25"/>
+   <xacro:arg name="ID" default="333"/>
+   <xacro:arg name="FactorSize" default="0.04"/>
+   <xacro:arg name="ratio" default="1.0"/>
+
+   <link name="box_world"/>
+    <!-- box -->
+   <xacro:simple_box
+     parent_link="$(arg parent_link)"
+     name="$(arg link_name)"
+     sx="$(arg sx)"
+     sy="$(arg sy)"
+     sz="$(arg sz)"
+     material="$(arg material)"
+     gmaterial="$(arg gmaterial)"
+     mass="$(arg mass)"
+     inertial="$(arg inertial)"
+     mu1="$(arg mu1)"
+     mu2="$(arg mu2)"
+     >
+   </xacro:simple_box>
+
+   <xacro:apriltag_marker namespace="" name="apriltag_$(arg ID)" parent="$(arg link_name)"
+           family="36h11" ID="$(arg ID)" size="$(arg FactorSize)" ratio="$(arg ratio)">
+           <origin xyz="0 0 ${$(arg sz)+0.0001}" rpy="0 0 0" />
+           <!--<origin xyz="0 0 0.0001" rpy="0 0 0" />-->
+    </xacro:apriltag_marker>
+
+
+</robot>

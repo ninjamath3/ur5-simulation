@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+       name="apriltag_marker">
+
+   <xacro:macro name="apriltag_marker" params="namespace name parent family ID size:=0 ratio:=1 apriltag_size:=0 *origin" >
+    
+    <!-- Check in which way the size was specified -->
+    <xacro:if value="${apriltag_size == 0}">
+      <xacro:property name="mesh_size" value="${size}" />
+    </xacro:if>
+    <xacro:if value="${apriltag_size != 0}">
+      <xacro:if value="${family == '36h11'}">
+        <xacro:property name="mesh_size" value="${apriltag_size/8*10}" />
+      </xacro:if>
+      <xacro:if value="${family == '16h5'}">
+        <xacro:property name="mesh_size" value="${apriltag_size/6*8}" />
+      </xacro:if>
+    </xacro:if>
+    
+    
+    <link name="${namespace}${name}">
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00001" iyz="0" izz="0.00002" />
+      </inertial>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="${mesh_size} ${mesh_size} 0.001" />
+        </geometry>
+      </collision>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <!-- use Python str to convert family name and to generate leading zeros -->
+          <mesh filename="file://$(find simple_box_with_marker_description)/meshes/tag${str(family).replace( 'h', '_' )}_${str(ID).zfill(5)}.dae" scale="${10*mesh_size} ${10*mesh_size*ratio} 1"/>
+        </geometry>
+      </visual>
+    </link>
+    <!-- we use Gazebo material to put the texture onto the marker. Note mu1=mu2=0 for no friction. -->
+    <gazebo reference="${namespace}${name}">
+      <!-- <material>Gazebo/Red</material> -->
+      <turnGravityOff>false</turnGravityOff>
+      <selfCollide>false</selfCollide>
+      <mu1>0</mu1>
+      <mu2>0</mu2>
+      <kp>1000000.0</kp>
+      <kd>1.0</kd>
+    </gazebo>
+    <joint name="${namespace}${name}_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${namespace}${parent}" />
+      <child link="${namespace}${name}" />
+    </joint>
+  </xacro:macro>
+
+</robot>

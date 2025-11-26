@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+       name="name" default="grasp_box">
+       
+    <!-- box name parameter -->
+   <xacro:arg name="name" default="grasp_box"/>
+
+   <!-- import main macro -->
+   <xacro:include filename="$(find simple_box_with_marker_description)/urdf/materials.xacro"/>
+   <xacro:include filename="$(find simple_box_with_marker_description)/urdf/simple_box.xacro" />
+
+   <!-- parameters -->
+   <xacro:arg name="link_name" default="grasp_box_base_link" />
+   <xacro:arg name="sx" default="0.04"/>
+   <xacro:arg name="sy" default="0.04"/>
+   <xacro:arg name="sz" default="0.08"/>
+   <xacro:arg name="material" default="red"/>
+   <xacro:arg name="gmaterial" default="Gazebo/Red"/>
+   <xacro:arg name="mass" default="0.1"/>
+   <xacro:arg name="inertial" default="0.000133333333333"/>
+   <xacro:arg name="mu1" default="0.25"/>
+   <xacro:arg name="mu2" default="0.25"/>
+   
+    <!-- box -->
+   <xacro:simple_box
+     name="$(arg link_name)"
+     sx="$(arg sx)"
+     sy="$(arg sy)"
+     sz="$(arg sz)"
+     material="$(arg material)"
+     gmaterial="$(arg gmaterial)"
+     mass="$(arg mass)"
+     inertial="$(arg inertial)"
+     mu1="$(arg mu1)"
+     mu2="$(arg mu2)"
+     >
+   </xacro:simple_box>
+
+
+</robot>

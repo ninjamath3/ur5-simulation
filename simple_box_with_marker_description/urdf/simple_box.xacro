@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+       name="simple_box">
+
+<xacro:include filename="$(find simple_box_with_marker_description)/urdf/utilities.xacro" />
+ 
+<xacro:macro name="simple_box" params="parent_link name sx sy sz material gmaterial mass inertial mu1 mu2">
+
+    <link name="${name}">
+    <xacro:default_inertia_mass_inertial  mass="${mass}" inertial="${inertial}" />
+    <visual>
+      <origin xyz="0 0 ${sz/2}" rpy="0 0 0" />
+      <geometry>
+        <box size="${sx} ${sy} ${sz}" />
+      </geometry>
+      <material name="${material}" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 ${sz/2}" rpy="0 0 0" />
+      <geometry>
+        <box size="${sx} ${sy} ${sz}" />
+      </geometry>  
+    </collision>
+  </link>
+  <gazebo reference="${name}">
+    <material>${gmaterial}</material> 
+    <!-- higher values for mu1/mu2 increase friction -->
+    <mu1>${mu1}</mu1>
+    <mu2>${mu2}</mu2>
+    <kp>100000.0</kp>
+    <kd>100.0</kd>
+    <!--<selfCollide>false</selfCollide>
+    <turnGravityOff>false</turnGravityOff>-->
+  </gazebo>
+  <joint name="dummy_joint" type="fixed">
+    <parent link="${parent_link}" />
+    <child  link="${name}" />
+  </joint>
+
+</xacro:macro>
+
+</robot>
