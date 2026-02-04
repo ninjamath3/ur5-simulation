@@ -19,6 +19,8 @@ I advise you to build your proper ROS2 configuration with your different package
 
 The archive includes the ROS2 packages I developed, which contain nodes, launch files, and scripts required to perform the simulation tasks mentioned above.
 
+You can find a global presentation of the project here : [presentation of the project](https://github.com/ninjamath3/ur5-simulation/blob/main/UR5%20simulation%20presentation.pdf)
+
 ## Archive Contents
 
 * [a compressed archive of all the ROS2 packages I worked on here] (https://github.com/ninjamath3/ur5-simulation/blob/main/packages%20developp%C3%A9s.zip)
