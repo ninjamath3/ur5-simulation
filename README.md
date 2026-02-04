@@ -23,7 +23,7 @@ You can find a global presentation of the project here : [presentation of the pr
 
 ## Archive Contents
 
-* [a compressed archive of all the ROS2 packages I worked on here] (https://github.com/ninjamath3/ur5-simulation/blob/main/packages%20developp%C3%A9s.zip)
+* [a compressed archive of all the ROS2 packages I worked on here](https://github.com/ninjamath3/ur5-simulation/blob/main/packages%20developp%C3%A9s.zip)
 
   * Packages include control nodes, perception scripts, and Gazebo launch configurations.
   * Designed to be easily imported into a ROS2 workspace for simulation.
